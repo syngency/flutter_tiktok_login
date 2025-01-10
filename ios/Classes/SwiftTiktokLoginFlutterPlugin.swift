@@ -41,22 +41,15 @@ public class SwiftTiktokLoginFlutterPlugin: NSObject, FlutterPlugin {
         let scopeList = scope.components(separatedBy: ",")
         
         let scopesSet = NSOrderedSet(array:scopeList)
-        let request = TikTokOpenSDKAuthRequest()
-        request.permissions = scopesSet
-        
-        /* STEP 2 */
-        request.send(viewController, completion: { resp -> Void in
-            /* STEP 3 */
-            if resp.errCode == TikTokOpenSDKErrorCode.success  {
-                /* STEP 3.a */
-                
-                result(resp.code)
-                
-                
-            } else {
-                result(FlutterError(code: "AUTHORIZATION_REQUEST_FAILED", message: resp.errString, details: nil))
+        let request = TikTokAuthRequest(scopes: scopesSet)
+        request.send { response in
+            guard let authResponse = response as? TikTokAuthResponse else { return }
+            if authResponse.errorCode == .noError {
+              result(authResponse.code)
+             } else {
+              result(FlutterError(code: "AUTHORIZATION_REQUEST_FAILED", message: authResponse.error.localizedDescription, details: nil))
             }
-        })
+        }
     }
     
     
