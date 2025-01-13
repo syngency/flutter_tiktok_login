@@ -16,7 +16,7 @@ A new Flutter project.
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
   s.dependency 'TikTokOpenSDKCore', '~> 2.5.0'
-  s.dependency 'TikTokOpenSDKAuth', '~> 2.5.0'
+  s.dependency 'TikTokOpenAuthSDK', '~> 2.5.0'
   s.platform = :ios, '14.0'
 
   # Flutter.framework does not contain a i386 slice.
