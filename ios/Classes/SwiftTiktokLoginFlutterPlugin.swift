@@ -38,6 +38,10 @@ public class SwiftTiktokLoginFlutterPlugin: NSObject, FlutterPlugin {
     let viewController: UIViewController =
       (UIApplication.shared.delegate?.window??.rootViewController)!
 
+    let args = call.arguments as! [String: Any]
+    let agencyId = args["agencyId"] as! number
+    let talentId = args["talentId"] as! number
+
     authRequest.send { response in
       guard let authResponse = response as? TikTokAuthResponse else {
         result("error")
@@ -50,6 +54,8 @@ public class SwiftTiktokLoginFlutterPlugin: NSObject, FlutterPlugin {
         tokenRequest.httpMethod = "POST"
         tokenRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let postData: [String: String] = [
+          "agency_id": agencyId,
+          "talent_id": talentId,
           "code": authResponse.authCode!,
           "code_verifier": self.authRequest.pkce.codeVerifier,
         ]

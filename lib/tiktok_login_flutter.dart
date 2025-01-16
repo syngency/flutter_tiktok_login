@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/services.dart';
 
 class TiktokLoginFlutter {
@@ -8,10 +9,16 @@ class TiktokLoginFlutter {
     return await _channel.invokeMethod('initializeTiktokLogin', clientKey);
   }
 
-  static Future<String> authorize(String scope) async {
+  static Future<String> authorize({
+    required int agencyId,
+    int talentId = 0,
+  }) async {
     try {
-    final result = await _channel.invokeMethod('authorize', {"scope": scope});
-    return result;
+      final result = await _channel.invokeMethod('authorize', {
+        "agencyId": agencyId,
+        "talentId": talentId,
+      });
+      return result;
     } catch (e) {
       return e.toString();
     }
