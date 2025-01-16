@@ -39,8 +39,8 @@ public class SwiftTiktokLoginFlutterPlugin: NSObject, FlutterPlugin {
       (UIApplication.shared.delegate?.window??.rootViewController)!
 
     let args = call.arguments as! [String: Any]
-    let agencyId = args["agencyId"] as! number
-    let talentId = args["talentId"] as! number
+    let agencyId = args["agencyId"] as! Int
+    let talentId = args["talentId"] as! Int
 
     authRequest.send { response in
       guard let authResponse = response as? TikTokAuthResponse else {
