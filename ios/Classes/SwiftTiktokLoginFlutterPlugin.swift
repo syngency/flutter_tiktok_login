@@ -54,10 +54,10 @@ public class SwiftTiktokLoginFlutterPlugin: NSObject, FlutterPlugin {
         tokenRequest.httpMethod = "POST"
         tokenRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let postData: [String: Any] = [
-          "agency_id": agencyId,
-          "talent_id": talentId,
+          "agencyId": agencyId,
+          "talentId": talentId,
           "code": authResponse.authCode!,
-          "code_verifier": self.authRequest.pkce.codeVerifier,
+          "codeVerifier": self.authRequest.pkce.codeVerifier,
         ]
         tokenRequest.httpBody = try? JSONSerialization.data(withJSONObject: postData)
         URLSession.shared.dataTask(with: tokenRequest) { data, tokenResponse, error in
